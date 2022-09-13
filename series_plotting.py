@@ -169,9 +169,9 @@ class SpectraSeries:
 		plt.title(title)
 
 		if xlim == 'auto':
-		plt.xlim(np.min(x), np.max(x))
+			plt.xlim(np.min(x), np.max(x))
 		else:
-		plt.xlim(xlim)
+			plt.xlim(xlim)
 
 		plt.gca().spines['right'].set_color('none')
 		plt.gca().spines['top'].set_color('none')
