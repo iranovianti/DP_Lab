@@ -165,7 +165,7 @@ class SpectraSeries:
 			label_list = [f'data_{i+1}' for i in range(len(self.data_series))]
 		
 		if custom_colors:
-			assert len(custom_colors) == self.data_series
+			assert len(custom_colors) == len(self.data_series)
 			colors = custom_colors
 		else:
 			colors = plt.get_cmap(color_palette)(np.linspace(0,1,len(self.data_series)))
