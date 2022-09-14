@@ -46,7 +46,7 @@ class SpectraSeries:
 		y = _abs['Abs.']
 		return x,y
 
-	def add_file(self, file_path, file_type):
+	def add_file(self, file_path, file_type, preview=False):
 		assert file_type in ['single', 'singles', 'multi']
 
 		print('adding...')
@@ -68,6 +68,9 @@ class SpectraSeries:
 				self.data_series.append(f)
 		
 		print(f'total number of data: {len(self.data_series)}')
+		
+		if preview:
+			self.spectra()
   
 	def remove_data(self, pos):
 		self.data_series.pop(pos-1)
