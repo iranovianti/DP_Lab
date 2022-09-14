@@ -159,7 +159,7 @@ class SpectraSeries:
 	
 	def spectra_disc(self, labels=None, color_palette='viridis', figure_size=(6,6), title='title', custom_colors=None, xlim='auto'):
 		if labels:
-			assert len(label_list) == len(self.data_series)
+			assert len(labels) == len(self.data_series)
 			label_list = labels
 		else:
 			label_list = [f'data_{i+1}' for i in range(len(self.data_series))]
