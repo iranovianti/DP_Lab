@@ -188,7 +188,7 @@ class SpectraSeries:
 		plt.gca().spines['top'].set_color('none')
 		plt.show()
   
-	def plot_at(self, wavelength=350, figure_size=(6,6), title='', xlim='auto', color='black'):
+	def plot_at(self, wavelength=350, figure_size=(6,6), title='', xlim='auto', ylim='auto', color='black'):
 		data = self.data_series
 
 		wl_index = data[0][0].tolist().index(wavelength)
@@ -206,6 +206,13 @@ class SpectraSeries:
 			plt.xlim(np.min(x), np.max(x))
 		else:
 			plt.xlim(xlim)
+		
+		if ylim == 'auto':
+			y_max = np.max([a[1] for a in self.data_series])
+			gap = np.abs(y_max)*0.15
+			plt.ylim(-gap, y_max+gap)
+		else:
+			plt.ylim(ylim)
 
 		plt.gca().spines['right'].set_color('none')
 		plt.gca().spines['top'].set_color('none')
