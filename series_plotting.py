@@ -70,7 +70,7 @@ class SpectraSeries:
 		print(f'total number of data: {len(self.data_series)}')
 		
 		if preview:
-			self.spectra()
+			self.spectra(title='Preview')
   
 	def remove_data(self, pos):
 		self.data_series.pop(pos-1)
@@ -155,6 +155,37 @@ class SpectraSeries:
 		
 		ax.spines['top'].set_visible(False)
 		ax.spines['right'].set_visible(False)
+		plt.show()
+	
+	def spectra_disc(self, labels=None, color_palette='viridis', figure_size=(6,6), title='title', custom_colors=None, xlim='auto'):
+		if labels:
+			assert len(label_list) == len(self.data_series)
+			label_list = labels
+		else:
+			label_list = [f'data_{i+1}' for i in range(len(self.data_series))]
+		
+		if custom_colors:
+			assert len(custom_colors) == self.data_series
+			colors = custom_colors
+		else:
+			colors = plt.get_cmap(color_palette)(np.linspace(0,1,len(self.data_series)))
+		
+		plt.figure(figsize=figure_size)
+		for i in range(len(self.data_series)):
+			x,y = self.data_series[i]
+			plt.plot(x, y, color=colors[i], label=label_list[i])
+		plt.xlabel(self.x_label)
+		plt.ylabel(self.mode)
+		plt.title(title)
+		
+		if xlim == 'auto':
+			plt.xlim(np.min(x), np.max(x))
+		else:
+			plt.xlim(xlim)
+		
+		plt.legend()
+		plt.gca().spines['right'].set_color('none')
+		plt.gca().spines['top'].set_color('none')
 		plt.show()
   
 	def plot_at(self, wavelength=350, figure_size=(6,6), title='', xlim='auto', color='black'):
