@@ -208,7 +208,7 @@ class SpectraSeries:
 			plt.xlim(xlim)
 		
 		if ylim == 'auto':
-			y_max = np.max([a[1] for a in self.data_series])
+			y_max = np.max(abs_wl)
 			gap = np.abs(y_max)*0.15
 			plt.ylim(-gap, y_max+gap)
 		else:
