@@ -41,7 +41,7 @@ class PDA:
 		pda_df = pda_df.dropna(axis='columns')
 
 		#5. Assign wavelength and time to each measured point
-		pda_df.index = steps(t_start, t_points, t_int)
+		pda_df.index = steps(t_start, t_points, t_int)[:pda_df.index.shape[0]]
 		pda_df.columns = steps(wl_start, wl_points, wl_int)
 		data = pda_df
 
