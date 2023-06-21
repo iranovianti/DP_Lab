@@ -62,7 +62,7 @@ class SpectraSeries:
 				self.data_series.append(f)
 		
 		elif file_type == 'multi':
-			file_stack = pd.read_csv(file_path, sep='\t', header=None)
+			file_stack = pd.read_csv(file_path, sep='\t', header=None, skiprows=1)
 			abs_list = [(file_stack[0], file_stack[i]) for i in file_stack.columns[1:]]
 			for f in abs_list:
 				self.data_series.append(f)
