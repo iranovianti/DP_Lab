@@ -158,7 +158,8 @@ class SpectraSeries:
 		ax.spines['right'].set_visible(False)
 		plt.show()
 	
-	def spectra_disc(self, labels=None, color_palette='viridis', figure_size=(6,6), legend=False, title='title', custom_colors=None, xlim='auto', legend_title=''):
+	def spectra_disc(self, labels=None, color_palette='viridis', figure_size=(6,6), legend=False, title='title', custom_colors=None, xlim='auto',
+			 ylim=None, legend_title=''):
 		if labels:
 			assert len(labels) == len(self.data_series)
 			label_list = labels
@@ -183,6 +184,9 @@ class SpectraSeries:
 			plt.xlim(np.min(x), np.max(x))
 		else:
 			plt.xlim(xlim)
+		
+		if ylim:
+			plt.ylim(ylim)
 		if legend:
 			plt.legend(title=legend_title, frameon=False)
 		plt.gca().spines['right'].set_color('none')
