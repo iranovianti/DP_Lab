@@ -118,7 +118,7 @@ class SpectraSeries:
 		plt.show()
 
 	def spectra_gradient(self, figure_size=(6,6), color1='blue', color2='red', xlim='auto', 
-		title='title', comment='', ylim='auto'):
+		title='title', comment='', ylim='auto', cbar=True):
 
 		data = [np.column_stack(s) for s in self.data_series]
 
@@ -131,10 +131,11 @@ class SpectraSeries:
 		line_segments.set_array(self.step())
 		ax.add_collection(line_segments)
 
-		cbaxes = inset_axes(ax, width="70%", height="3%", loc=1) 
-		axcb = fig.colorbar(line_segments, cax=cbaxes, orientation='horizontal')
-		axcb.ax.tick_params(labelsize=15)
-		axcb.set_label(f'{self.series_unit}\n{comment}', fontsize=15)
+		if cbar:
+			cbaxes = inset_axes(ax, width="70%", height="3%", loc=1) 
+			axcb = fig.colorbar(line_segments, cax=cbaxes, orientation='horizontal')
+			axcb.ax.tick_params(labelsize=15)
+			axcb.set_label(f'{self.series_unit}\n{comment}', fontsize=15)
 
 		ax.set_xlabel(self.x_label)
 		ax.set_ylabel(self.mode)
@@ -157,7 +158,7 @@ class SpectraSeries:
 		ax.spines['right'].set_visible(False)
 		plt.show()
 	
-	def spectra_disc(self, labels=None, color_palette='viridis', figure_size=(6,6), title='title', custom_colors=None, xlim='auto'):
+	def spectra_disc(self, labels=None, color_palette='viridis', figure_size=(6,6), legend=False, title='title', custom_colors=None, xlim='auto', legend_title=''):
 		if labels:
 			assert len(labels) == len(self.data_series)
 			label_list = labels
@@ -182,8 +183,8 @@ class SpectraSeries:
 			plt.xlim(np.min(x), np.max(x))
 		else:
 			plt.xlim(xlim)
-		
-		plt.legend()
+		if legend:
+			plt.legend(title=legend_title, frameon=False)
 		plt.gca().spines['right'].set_color('none')
 		plt.gca().spines['top'].set_color('none')
 		plt.show()
