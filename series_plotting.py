@@ -193,7 +193,7 @@ class SpectraSeries:
 		plt.gca().spines['top'].set_color('none')
 		plt.show()
   
-	def plot_at(self, wavelength=350, figure_size=(6,6), title='', xlim='auto', ylim='auto', color='black'):
+	def plot_at(self, wavelength=350, figure_size=(6,6), title='', xlim='auto', ylim='auto', color='black', gradient=False, color1='blue', color2='red', lw=3):
 		data = self.data_series
 
 		wl_index = data[0][0].tolist().index(wavelength)
@@ -201,7 +201,18 @@ class SpectraSeries:
 		x = self.step()
 
 		plt.figure(figsize=figure_size)
-		plt.plot(x, abs_wl, color=color)
+		if gradient:
+			points = np.array([x, abs_wl]).T.reshape(-1, 1, 2)
+			segments = np.concatenate([points[:-1], points[1:]], axis=1)
+
+			colormap = make_colormap([ccv(color1), ccv(color2)])
+			
+			lc = LineCollection(segments, cmap=colormap, norm=plt.Normalize(0.0, 1.0), alpha=1.0)
+			lc.set_array(np.linspace(0.0, 1.0, len(x)))
+			lc.set_linewidth(lw)
+			plt.gca().add_collection(lc)
+		else:
+			plt.plot(x, abs_wl, color=color)
 
 		plt.xlabel(f'{self.series_measure} ({self.series_unit})')
 		plt.ylabel(f'{self.mode} at {wavelength} nm')
