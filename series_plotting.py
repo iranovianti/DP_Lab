@@ -205,6 +205,7 @@ class SpectraSeries:
 			points = np.array([x, abs_wl]).T.reshape(-1, 1, 2)
 			segments = np.concatenate([points[:-1], points[1:]], axis=1)
 
+			ccv = mcolors.ColorConverter().to_rgb
 			colormap = make_colormap([ccv(color1), ccv(color2)])
 			
 			lc = LineCollection(segments, cmap=colormap, norm=plt.Normalize(0.0, 1.0), alpha=1.0)
