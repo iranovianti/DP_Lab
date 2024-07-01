@@ -37,8 +37,11 @@ class SpectraSeries:
 		self.series_start = series_start
 		self.series_interval = series_interval
 
-		plt.rc('font', size=font_size)
-		plt.rc('legend', fontsize=legend_font_size)
+		self.font_size = font_size
+		self.legend_font_size = legend_font_size
+
+		plt.rc('font', size=self.font_size)
+		plt.rc('legend', fontsize=self.legend_font_size)
 
 	def open_abs(self, file_path):
 		_abs = pd.read_csv(file_path, sep='\t', skiprows=1)
