@@ -213,7 +213,7 @@ class SpectraSeries:
 			lc.set_linewidth(lw)
 			plt.gca().add_collection(lc)
 		else:
-			plt.plot(x, abs_wl, color=color)
+			plt.plot(x, abs_wl, color=color, lw=lw)
 
 		plt.xlabel(f'{self.series_measure} ({self.series_unit})')
 		plt.ylabel(f'{self.mode} at {wavelength} nm')
@@ -235,7 +235,7 @@ class SpectraSeries:
 		plt.gca().spines['top'].set_color('none')
 		plt.show()
 
-	def plot_at_peak(self, range_wl=(450,600), pos=1, figure_size=(6,6), title='', xlim='auto', color='black'):
+	def plot_at_peak(self, range_wl=(450,600), pos=1, figure_size=(6,6), title='', xlim='auto', color='black', lw=3):
 		_wavelength = (self.data_series[pos-1][0]).tolist()
 		_abs = (self.data_series[pos-1][1]).tolist()
 
@@ -250,4 +250,4 @@ class SpectraSeries:
 
 		print(f'Maximum absorbance {max_abs} at {max_wl} nm')
 		
-		self.plot_at(max_wl, figure_size=figure_size, title=title, xlim=xlim, color=color)
+		self.plot_at(max_wl, figure_size=figure_size, title=title, xlim=xlim, color=color, lw=lw)
