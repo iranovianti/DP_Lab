@@ -162,7 +162,7 @@ class SpectraSeries:
 		plt.show()
 	
 	def spectra_disc(self, labels=None, color_palette='viridis', figure_size=(6,6), legend=False, title='title', custom_colors=None, xlim='auto',
-			 ylim=None, legend_title=''):
+			 ylim=None, legend_title='', savefig=None):
 		if labels:
 			assert len(labels) == len(self.data_series)
 			label_list = labels
@@ -194,6 +194,8 @@ class SpectraSeries:
 			plt.legend(title=legend_title, frameon=False)
 		plt.gca().spines['right'].set_color('none')
 		plt.gca().spines['top'].set_color('none')
+		if savefig:
+			plt.savefig(savefig, dpi=300, bbox_inches='tight')
 		plt.show()
   
 	def plot_at(self, wavelength=350, figure_size=(6,6), title='', xlim='auto', ylim='auto', color='black', gradient=False, color1='blue', color2='red', lw=3):
