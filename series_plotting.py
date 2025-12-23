@@ -238,11 +238,24 @@ class SpectraSeries:
 		plt.gca().spines['top'].set_color('none')
 		plt.show()
 
-	def plot_at_peak(self, range_wl=(450,600), pos=1, figure_size=(6,6), title='', xlim='auto', color='black', lw=3):
+	def find_peak_wavelength(self, range_wl=(450, 600), pos=1):
+		"""
+		Find the wavelength of maximum absorbance within a given range.
+		
+		Parameters
+		----------
+		range_wl : tuple
+			Wavelength range (min, max) to search within
+		pos : int
+			Position in data_series (1-indexed)
+		
+		Returns
+		-------
+		float
+			Wavelength at maximum absorbance
+		"""
 		_wavelength = (self.data_series[pos-1][0]).tolist()
 		_abs = (self.data_series[pos-1][1]).tolist()
-
-		print('Finding peak...')
 
 		start = _wavelength.index(range_wl[0])
 		end = _wavelength.index(range_wl[1])
@@ -251,6 +264,10 @@ class SpectraSeries:
 		max_idx = _abs.index(max_abs)
 		max_wl = _wavelength[max_idx]
 
-		print(f'Maximum absorbance {max_abs} at {max_wl} nm')
-		
+		return max_wl
+
+	def plot_at_peak(self, range_wl=(450,600), pos=1, figure_size=(6,6), title='', xlim='auto', color='black', lw=3):
+		"""Find peak wavelength and plot absorbance at that wavelength over time."""
+		max_wl = self.find_peak_wavelength(range_wl=range_wl, pos=pos)
+		print(f'Peak found at {max_wl} nm')
 		self.plot_at(max_wl, figure_size=figure_size, title=title, xlim=xlim, color=color, lw=lw)
